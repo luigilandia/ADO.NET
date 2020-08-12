@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -20,13 +21,102 @@ namespace ADO.NET
 
         public void Insertar()
         {
-            SqlConnection conexion = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\formacion\Documents\prueba.mdf; Integrated Security = True; Connect Timeout = 30");
-            conexion.Open();
-            String sql = "insert into factura (numero, concepto) " +
-                "values ("+Numero+", '"+Concepto+"')";
-            SqlCommand comando = new SqlCommand(sql, conexion);
-            comando.ExecuteNonQuery();
-            conexion.Close();
+            using (
+            SqlConnection conexion = new SqlConnection(CadenaConexion()))
+            {
+                conexion.Open();
+                String sql = "insert into factura (numero, concepto) " +
+                    "values (" + Numero + ", '" + Concepto + "')";
+                SqlCommand comando = new SqlCommand(sql, conexion);
+                comando.ExecuteNonQuery();
+            }
         }
+
+        private static string CadenaConexion()
+        {
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings["miconexion"];
+            String cadena = settings.ConnectionString;
+            return cadena;
+        }
+
+        public void Borrar()
+        {
+            using (
+            SqlConnection conexion = new SqlConnection(CadenaConexion()))
+            {
+                conexion.Open();
+                String sql = "delete from factura where numero="+Numero;
+                SqlCommand comando = new SqlCommand(sql, conexion);
+                comando.ExecuteNonQuery();
+            }
+        }
+
+        public static List<FacturaActiveRecord> BuscarTodos()
+        {
+            List<FacturaActiveRecord> lista = new List<FacturaActiveRecord>();
+            using (
+            SqlConnection conexion = new SqlConnection(CadenaConexion()))
+            {
+                conexion.Open();
+                String sql = "select * from factura";
+                SqlCommand comando = new SqlCommand(sql, conexion);
+                SqlDataReader lector=comando.ExecuteReader();
+                while (lector.Read())
+                {
+                    lista.Add(new FacturaActiveRecord(Convert.ToInt32(lector["numero"]), lector["concepto"].ToString()));
+
+                }
+                return lista;
+            }
+        }
+
+        public static FacturaActiveRecord BuscarUna(int Numero)
+        {
+            List<FacturaActiveRecord> lista = new List<FacturaActiveRecord>();
+            using (
+            SqlConnection conexion = new SqlConnection(CadenaConexion()))
+            {
+                conexion.Open();
+                String sql = "select * from factura where numero="+Numero;
+                SqlCommand comando = new SqlCommand(sql, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+                if (lector.Read())
+                {
+                    FacturaActiveRecord factura = new FacturaActiveRecord(Convert.ToInt32(lector["numero"]), lector["concepto"].ToString());
+                    return factura;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+        }
+
+        public void Actualizar()
+        {
+            using (
+            SqlConnection conexion = new SqlConnection(CadenaConexion()))
+            {
+                conexion.Open();
+                String sql = "update factura set concepto='"+Concepto+"' where numero=" + Numero;
+                SqlCommand comando = new SqlCommand(sql, conexion);
+                comando.ExecuteNonQuery();
+            }
+        }
+
+        public void Borrar2()
+        {
+            using (
+            SqlConnection conexion = new SqlConnection(CadenaConexion()))
+            {
+                conexion.Open();
+                String sql = "delete from factura where numero=@Numero";
+                SqlCommand comando = new SqlCommand(sql, conexion);
+                comando.Parameters.AddWithValue("@Numero", Numero);
+                comando.ExecuteNonQuery();
+            }
+        }
+
     }
 }

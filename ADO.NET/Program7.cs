@@ -6,16 +6,13 @@ using System.Threading.Tasks;
 
 namespace ADO.NET
 {
-    class Program5
+    class Program7
     {
         static void Main(string[] args)
         {
-            FacturaActiveRecord f1 = new FacturaActiveRecord(5, "Micro");
-            //f1.Insertar();
-            //f1.Borrar();
-            f1.Borrar2();
+            FacturaActiveRecord f= FacturaActiveRecord.BuscarUna(58);
+            Console.WriteLine(f.Concepto);
             Console.ReadLine();
-
         }
     }
 }

@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ADO.NET.Program5</StartupObject>
+    <StartupObject>ADO.NET.Program8</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ADO.NET.Program8</StartupObject>
+    <StartupObject>ADO.NET.Program9</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,6 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FacturaActiveRecord.cs" />
+    <Compile Include="FacturaLineaDTO.cs" />
+    <Compile Include="FiltroFactura.cs" />
+    <Compile Include="LineaDeFacturaActiveRecord.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program2.cs" />
     <Compile Include="Program3.cs" />
@@ -56,6 +59,7 @@
     <Compile Include="Program6.cs" />
     <Compile Include="Program7.cs" />
     <Compile Include="Program8.cs" />
+    <Compile Include="Program9.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

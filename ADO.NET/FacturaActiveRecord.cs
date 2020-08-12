@@ -173,7 +173,7 @@ namespace ADO.NET
             }
         }
 
-        public static FacturaActiveRecord BuscarPorConcepto(string Concepto)
+        public static List<FacturaActiveRecord> BuscarPorConcepto(string Concepto)
         {
             List<FacturaActiveRecord> lista = new List<FacturaActiveRecord>();
             using (
@@ -187,7 +187,51 @@ namespace ADO.NET
                 if (lector.Read())
                 {
                     FacturaActiveRecord factura = new FacturaActiveRecord(Convert.ToInt32(lector["numero"]), lector["concepto"].ToString());
-                    return factura;
+                    return lista;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+        }
+
+        public static List<FacturaActiveRecord> BuscarTodos(FiltroFactura filtro)
+        {
+            List<FacturaActiveRecord> lista = new List<FacturaActiveRecord>();
+            using (
+            SqlConnection conexion = new SqlConnection(CadenaConexion()))
+            {
+                conexion.Open();
+                String sql = "select * from factura";
+                SqlCommand comando = new SqlCommand();
+                if (filtro.Numero != 0)
+                {
+                    sql += " where Numero=@Numero";
+                    comando.Parameters.AddWithValue("@Numero", filtro.Numero);
+
+                    if (filtro.Concepto != null)
+                    {
+                        sql += " and Concepto=@Concepto";
+                        comando.Parameters.AddWithValue("@Concepto", filtro.Concepto);
+                    }
+                }
+                else
+                {
+                    if (filtro.Concepto != null)
+                    {
+                        sql += " where Concepto=@Concepto";
+                        comando.Parameters.AddWithValue("@Concepto", filtro.Concepto);
+                    }
+                }
+                comando.Connection = conexion;
+                comando.CommandText = sql;
+                SqlDataReader lector = comando.ExecuteReader();
+                if (lector.Read())
+                {
+                    FacturaActiveRecord factura = new FacturaActiveRecord(Convert.ToInt32(lector["numero"]), lector["concepto"].ToString());
+                    return lista;
                 }
                 else
                 {
@@ -200,6 +244,66 @@ namespace ADO.NET
         public override string ToString()
         {
             return Numero +" "+ Concepto;
+        }
+
+        public List<LineaDeFacturaActiveRecord> BuscarTodos2()
+        {
+            List<LineaDeFacturaActiveRecord> lista = new List<LineaDeFacturaActiveRecord>();
+            using (
+            SqlConnection conexion = new SqlConnection(CadenaConexion()))
+            {
+                conexion.Open();
+                String sql = "select * from lineasfactura where factura_numero=@Factura_Numero";
+                
+                SqlCommand comando = new SqlCommand(sql, conexion);
+                comando.Parameters.AddWithValue("@Factura_Numero", Numero);
+                SqlDataReader lector = comando.ExecuteReader();
+                while (lector.Read())
+                {
+                    lista.Add(new LineaDeFacturaActiveRecord(Convert.ToInt32(lector["numero"]), Convert.ToInt32(lector["factura_numero"]),
+                        lector["Producto_id"].ToString(), Convert.ToInt32(lector["Unidades"])));
+
+                }
+
+                return lista;
+            }
+            
+        }
+
+        public static List<FacturaLineaDTO> BuscarTodasFacturasLineas()
+        {
+            List<FacturaLineaDTO> lista = new List<FacturaLineaDTO>();
+            using (
+            SqlConnection conexion = new SqlConnection(CadenaConexion()))
+            {
+                conexion.Open();
+                String sql = "select factura.numero, factura.concepto, " +
+                    "lineasfactura.unidades, lineasfactura.producto_id from factura inner join lineasFactura on " +
+                    "factura.numero=lineasfactura.factura_numero";
+                SqlCommand comando = new SqlCommand(sql, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+                while (lector.Read())
+                {
+                    FacturaLineaDTO factura = new FacturaLineaDTO(Convert.ToInt32(lector["numero"]), lector["concepto"].ToString(), Convert.ToInt32(lector["unidades"]), lector["producto_id"].ToString());
+                    return lista;
+                }
+                return null;
+
+            }
+        }
+
+        public static void UnidadesTotales()
+        {
+            using (
+           SqlConnection conexion = new SqlConnection(CadenaConexion()))
+            {
+                conexion.Open();
+                String sql = "select sum(unidades) from lineasfactura";
+                SqlCommand comando = new SqlCommand(sql, conexion);
+                comando.ExecuteNonQuery();
+                
+                
+            }
         }
 
     }

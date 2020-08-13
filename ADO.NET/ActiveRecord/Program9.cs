@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ADO.NET.ActiveRecord;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +24,8 @@ namespace ADO.NET
                 Console.WriteLine(lf.Concepto);
                 //Console.WriteLine(lf.NumeroFactura);
             }
-            
-            Console.WriteLine();
+            int resultado = FacturaActiveRecord.UnidadesTotales();
+            Console.WriteLine(resultado);
             Console.ReadLine();
             //lf1.Insertar();
 

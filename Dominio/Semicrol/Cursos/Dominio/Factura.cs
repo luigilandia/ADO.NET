@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ADO.NET
+namespace Semicrol.Cursos.Dominio
 {
-    class FiltroFactura
+    public class Factura
     {
-        public FiltroFactura(int numero, string concepto)
+        public Factura(int numero)
+        {
+            Numero = numero;
+        }
+
+        public Factura(int numero, string concepto)
         {
             Numero = numero;
             Concepto = concepto;
-        }
-
-        public FiltroFactura()
-        {
         }
 
         public int Numero { get; set; }
         public string Concepto { get; set; }
     }
 }
+

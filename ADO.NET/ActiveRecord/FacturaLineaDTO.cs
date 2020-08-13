@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADO.NET
+namespace ADO.NET.ActiveRecord
 {
-    class FacturaLineaDTO
+    public class FacturaLineaDTO
     {
         public FacturaLineaDTO(int numeroFactura, string concepto, int unidades, string producto_Id)
         {

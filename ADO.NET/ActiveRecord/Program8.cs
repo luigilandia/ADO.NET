@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ADO.NET.ActiveRecord;
+using ADO.NET.Persistencia.Filtros;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +19,7 @@ namespace ADO.NET
             List<FacturaActiveRecord> f2 =FacturaActiveRecord.BuscarPorConcepto("Televisor");
             //Console.WriteLine(f2.Numero);
             //Console.WriteLine(f2.Concepto);
-            FiltroFactura f = new FiltroFactura();
+            FiltroFacturaNuevo f = new FiltroFacturaNuevo();
             Console.WriteLine(f2.ToString());
    
             List<FacturaActiveRecord> f3 = FacturaActiveRecord.BuscarTodos(f);

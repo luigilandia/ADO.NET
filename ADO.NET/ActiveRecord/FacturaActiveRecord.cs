@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ADO.NET.Persistencia.Filtros;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ADO.NET
+namespace ADO.NET.ActiveRecord
 {
     class FacturaActiveRecord
     {
@@ -197,7 +198,7 @@ namespace ADO.NET
             }
         }
 
-        public static List<FacturaActiveRecord> BuscarTodos(FiltroFactura filtro)
+        public static List<FacturaActiveRecord> BuscarTodos(FiltroFacturaNuevo filtro)
         {
             List<FacturaActiveRecord> lista = new List<FacturaActiveRecord>();
             using (
@@ -292,16 +293,17 @@ namespace ADO.NET
             }
         }
 
-        public static void UnidadesTotales()
+        public static int UnidadesTotales()
         {
-            using (
+           using (
            SqlConnection conexion = new SqlConnection(CadenaConexion()))
             {
                 conexion.Open();
                 String sql = "select sum(unidades) from lineasfactura";
                 SqlCommand comando = new SqlCommand(sql, conexion);
-                comando.ExecuteNonQuery();
-                
+                //ejecuta para devolver un número (para funciones de agregación)
+                int total=Convert.ToInt32(comando.ExecuteScalar());
+                return total;
                 
             }
         }

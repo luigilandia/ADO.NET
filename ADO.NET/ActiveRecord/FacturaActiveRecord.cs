@@ -1,4 +1,5 @@
-﻿using ADO.NET.Persistencia.Filtros;
+﻿
+using Semicrol.Cursos.Persistencia.Filtros;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

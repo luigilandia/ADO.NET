@@ -11,5 +11,18 @@ namespace Semicrol.Cursos.Servicios
     {
         void InsertarFactura(Factura f);
         List<Factura> BuscarTodasLasFacturas();
+
+        List<Factura> BuscarTodosConLineas();
+        void Borrar(Factura factura);
+        void Actualizar(Factura factura);
+        void Insertar(LineaFactura lf);
+
+        /*
+        
+        
+        
+        
+        List<Factura> BuscarTodos(FiltroFacturaNuevo filtro);
+        Factura BuscarUno(int numero);*/
     }
 }

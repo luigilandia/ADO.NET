@@ -1,8 +1,11 @@
 ﻿
 using ADO.NET.Persistencia;
+using Persistencia.Semicrol.Cursos.Persistencia;
 using Semicrol.Cursos.Dominio;
 using Semicrol.Cursos.Persistencia.Filtros;
 using Semicrol.Cursos.PersistenciaADO;
+using Semicrol.Cursos.Servicios;
+using Servicios.Semicrol.Cursos.Servicios;
 using System;
 using System.Collections.Generic;
 
@@ -41,7 +44,7 @@ namespace ADO.NET
             FiltroFacturaNuevo filtro3 = new FiltroFacturaNuevo();
             filtro3.AddConcepto("Televisor").AddNumero(1);*/
 
-            IFacturaRepository repo = new FacturaRepository();
+            /*IFacturaRepository repo = new FacturaRepository();
             List<Factura> lista = repo.BuscarTodosConLineas();
             foreach(Factura f in lista)
             {
@@ -50,6 +53,16 @@ namespace ADO.NET
                 {
                     Console.WriteLine(lf.Unidades);
                 }
+            }*/
+
+            IFacturaRepository repo = new FacturaRepository();
+            ILineaFacturaRepository repolineas = new LineaFacturaRepository();
+            IServicioFacturacion servicio=new ServicioFacturas(repo, repolineas);
+
+            List<Factura> lista = servicio.BuscarTodasLasFacturas();
+            foreach (Factura f in lista)
+            {
+                Console.WriteLine(f.Concepto);
             }
             
             Console.ReadLine();

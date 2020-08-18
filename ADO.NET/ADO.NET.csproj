@@ -79,6 +79,10 @@
       <Project>{7557403e-6381-41c5-b97d-87f654d9e05a}</Project>
       <Name>Persistencia</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Servicios\Servicios.csproj">
+      <Project>{adac28a6-5d3c-4ae8-a62a-a1d97e9cd65b}</Project>
+      <Name>Servicios</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dominio\" />

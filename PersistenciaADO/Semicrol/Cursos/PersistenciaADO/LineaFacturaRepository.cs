@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Semicrol.Cursos.PersistenciaADO
 {
-    class LineaFacturaRepository : ILineaFacturaRepository
+    public class LineaFacturaRepository : ILineaFacturaRepository
     {
         public void Insertar(LineaFactura lf)
         {

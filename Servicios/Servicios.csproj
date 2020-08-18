@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1071572D-8178-4972-9F05-183A170A4AA3}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ADO.NET</RootNamespace>
-    <AssemblyName>ADO.NET</AssemblyName>
+    <ProjectGuid>{ADAC28A6-5D3C-4AE8-A62A-A1D97E9CD65B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Servicios</RootNamespace>
+    <AssemblyName>Servicios</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,12 +30,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>ADO.NET.Program10</StartupObject>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,41 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActiveRecord\FacturaActiveRecord.cs" />
-    <Compile Include="ActiveRecord\FacturaLineaDTO.cs" />
-    <Compile Include="ActiveRecord\FiltroFactura.cs" />
-    <Compile Include="ActiveRecord\LineaDeFacturaActiveRecord.cs" />
-    <Compile Include="ActiveRecord\Program.cs" />
-    <Compile Include="ActiveRecord\Program2.cs" />
-    <Compile Include="ActiveRecord\Program3.cs" />
-    <Compile Include="ActiveRecord\Program4.cs" />
-    <Compile Include="ActiveRecord\Program5.cs" />
-    <Compile Include="ActiveRecord\Program6.cs" />
-    <Compile Include="ActiveRecord\Program7.cs" />
-    <Compile Include="ActiveRecord\Program8.cs" />
-    <Compile Include="ActiveRecord\Program9.cs" />
-    <Compile Include="Program10.cs" />
+    <Compile Include="Semicrol\Cursos\Servicios\IServicioFacturacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
+    <Compile Include="Semicrol\Cursos\Servicios\ServicioFacturas.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj">
       <Project>{928664b1-87ac-420d-a555-729d8a85b4e8}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PersistenciaADO\PersistenciaADO.csproj">
-      <Project>{5134d8fe-348f-42f3-ad7f-a7308232282b}</Project>
-      <Name>PersistenciaADO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Persistencia\Persistencia.csproj">
       <Project>{7557403e-6381-41c5-b97d-87f654d9e05a}</Project>
       <Name>Persistencia</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dominio\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

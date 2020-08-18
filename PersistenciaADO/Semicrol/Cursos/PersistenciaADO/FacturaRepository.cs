@@ -1,4 +1,6 @@
 ﻿
+
+using ADO.NET.Persistencia;
 using Semicrol.Cursos.Dominio;
 using Semicrol.Cursos.Persistencia.Filtros;
 using System;
@@ -7,7 +9,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 
 
-namespace ADO.NET.Persistencia
+namespace Semicrol.Cursos.PersistenciaADO
 {
     public class FacturaRepository:IFacturaRepository
     {
@@ -144,6 +146,48 @@ namespace ADO.NET.Persistencia
                     return null;
                 }
 
+            }
+        }
+
+        public List<Factura> BuscarTodosConLineas()
+        {
+            using (
+            SqlConnection conexion = new SqlConnection(CadenaConexion()))
+            {
+                conexion.Open();
+                String sql = "select factura.Numero as 'NumeroFactura', " +
+                    "Factura.Concepto, LineasFactura.numero as 'NumeroLinea', " +
+                    "unidades, producto_id from factura inner join lineasfactura " +
+                    "on factura.numero = lineasfactura.factura_numero";
+                SqlCommand comando = new SqlCommand(sql, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+                List<Factura> listaFacturas = new List<Factura>();
+                while (lector.Read())
+                {
+                    Factura f = new Factura(Convert.ToInt32(lector["NumeroFactura"]));
+                    if (!listaFacturas.Contains(f))
+                    {
+                        f.Concepto = lector["Concepto"].ToString();
+                        listaFacturas.Add(f);
+                    }
+                    else
+                    {
+                        f = listaFacturas.
+                            Find((facturita) => facturita.Numero == Convert.ToInt32(lector["NumeroFactura"]));
+
+                    }
+                    LineaFactura linea = new LineaFactura(Convert.ToInt32(lector["NumeroLinea"]),f);
+                    
+                    linea.Unidades = Convert.ToInt32(lector["unidades"]);
+                    linea.Producto_Id = lector["producto_id"].ToString();
+                    
+                    f.AddLinea(linea);
+
+                    /*lista.Add(new Factura(Convert.ToInt32(lector["numero"]), 
+                        lector["concepto"].ToString()));*/
+
+                }
+                return listaFacturas;
             }
         }
     }

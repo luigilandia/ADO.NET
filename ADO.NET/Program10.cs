@@ -1,10 +1,8 @@
 ﻿
-
-using ADO.NET.ActiveRecord;
 using ADO.NET.Persistencia;
-
 using Semicrol.Cursos.Dominio;
 using Semicrol.Cursos.Persistencia.Filtros;
+using Semicrol.Cursos.PersistenciaADO;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +13,7 @@ namespace ADO.NET
     {
         static void Main(string[] args)
         {
-            FacturaRepository repositorio = new FacturaRepository();
+            /*FacturaRepository repositorio = new FacturaRepository();
             repositorio.Insertar(new Factura(21, "tablet"));
             repositorio.Borrar(new Factura(20));
             Factura factura=repositorio.BuscarUno(1);
@@ -26,10 +24,10 @@ namespace ADO.NET
                 Console.WriteLine(f.Numero);
                 Console.WriteLine(f.Concepto);
             }
-            FiltroFactura filtro = new FiltroFactura();
+            /*FiltroFactura filtro = new FiltroFactura();
             filtro.Numero = 4;
-            filtro.Concepto = "Televisor";
-            FiltroFacturaNuevo filtro2 = new FiltroFacturaNuevo();
+            filtro.Concepto = "Televisor";*/
+            /*FiltroFacturaNuevo filtro2 = new FiltroFacturaNuevo();
             FiltroFacturaNuevo otro= filtro2.AddConcepto("Televisor").AddNumero(1);
             List<Factura> facturas2 = repositorio.BuscarTodos(otro);
             foreach (Factura f in facturas2)
@@ -41,7 +39,18 @@ namespace ADO.NET
             //List<FacturaLineaDTO> fc=repositorio.BuscarTodasFacturasLineas();
             //Console.WriteLine(fc.ToString());
             FiltroFacturaNuevo filtro3 = new FiltroFacturaNuevo();
-            filtro3.AddConcepto("Televisor").AddNumero(1);
+            filtro3.AddConcepto("Televisor").AddNumero(1);*/
+
+            IFacturaRepository repo = new FacturaRepository();
+            List<Factura> lista = repo.BuscarTodosConLineas();
+            foreach(Factura f in lista)
+            {
+                Console.WriteLine(f.Concepto);
+                foreach (LineaFactura lf in f.lineas)
+                {
+                    Console.WriteLine(lf.Unidades);
+                }
+            }
             
             Console.ReadLine();
         }

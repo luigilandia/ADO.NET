@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Servicios.Semicrol.Cursos.Servicios
 {
+    //[Transaction]
     public class ServicioFacturas : IServicioFacturacion
     {
         private IFacturaRepository repoFacturas;

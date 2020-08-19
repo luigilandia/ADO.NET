@@ -60,6 +60,7 @@
     <Compile Include="ActiveRecord\Program7.cs" />
     <Compile Include="ActiveRecord\Program8.cs" />
     <Compile Include="ActiveRecord\Program9.cs" />
+    <Compile Include="ManejoDeTransacciones.cs" />
     <Compile Include="Program10.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
